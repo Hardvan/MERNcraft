@@ -59,7 +59,7 @@ app.listen(port, () => {
 '''
 
 
-def run_batch_commands(commands):
+def _run_batch_commands(commands):
     """Creates a temporary batch file, executes it, and deletes it."""
     with tempfile.NamedTemporaryFile(delete=False, suffix='.bat') as temp_batch_file:
         batch_file_path = temp_batch_file.name
@@ -71,7 +71,7 @@ def run_batch_commands(commands):
         os.remove(batch_file_path)
 
 
-def update_package_json():
+def _update_package_json():
     """Updates the package.json file with custom scripts."""
     package_json_path = 'package.json'
 
@@ -88,7 +88,7 @@ def update_package_json():
         json.dump(package_json, f, indent=2)
 
 
-def get_user_choice(prompt):
+def _get_user_choice(prompt):
     """Get user choice (y/n) and return True if 'y' and False if 'n'.
 
     Args:
@@ -124,7 +124,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
     # Create README.md
     if create_readme:
         if os.path.exists("README.md"):
-            if get_user_choice("🔍 Found an existing README.md. Overwrite (y/n)?: "):
+            if _get_user_choice("🔍 Found an existing README.md. Overwrite (y/n)?: "):
                 with open("README.md", "w") as readme_file:
                     readme_file.write(README_CONTENT)
                 print("✅ Overwritten README.md")
@@ -137,7 +137,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
     # Create .gitignore
     if create_gitignore:
         if os.path.exists(".gitignore"):
-            if get_user_choice("🔍 Found an existing .gitignore. Overwrite (y/n)?: "):
+            if _get_user_choice("🔍 Found an existing .gitignore. Overwrite (y/n)?: "):
                 with open(".gitignore", "w") as gitignore_file:
                     gitignore_file.write(GITIGNORE_CONTENT)
                 print("✅ Overwritten .gitignore")
@@ -161,7 +161,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         # Create server.js
         if create_server_js:
             if os.path.exists("server.js"):
-                if get_user_choice("🔍 Found an existing server.js. Overwrite (y/n)?: "):
+                if _get_user_choice("🔍 Found an existing server.js. Overwrite (y/n)?: "):
                     with open("server.js", "w") as server_js:
                         server_js.write(SERVER_JS_CONTENT)
                     print("✅ Overwritten server.js")
@@ -177,11 +177,11 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
             "npm init -y",
             "npm install express nodemon",
         ]
-        run_batch_commands(init_npm_commands)
+        _run_batch_commands(init_npm_commands)
         print("📦 Initialized npm in backend")
 
         # Update package.json with new scripts
-        update_package_json()
+        _update_package_json()
         print("✅ Updated package.json with custom scripts")
 
         # Change back to project root directory
@@ -192,7 +192,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         create_react_app_commands = [
             f"npx create-react-app {frontend_dir}"
         ]
-        run_batch_commands(create_react_app_commands)
+        _run_batch_commands(create_react_app_commands)
         print("📦 Created React app in frontend")
 
     # Final message
