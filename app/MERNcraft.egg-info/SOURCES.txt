@@ -1,0 +1,12 @@
+LICENSE
+README.md
+setup.py
+app/MERNcraft/__init__.py
+app/MERNcraft.egg-info/PKG-INFO
+app/MERNcraft.egg-info/SOURCES.txt
+app/MERNcraft.egg-info/dependency_links.txt
+app/MERNcraft.egg-info/top_level.txt
+app/MERNcraft/src/MERNcraft.py
+app/MERNcraft/src/__init__.py
+app/MERNcraft/test/__init__.py
+app/MERNcraft/test/test_MERNcraft.py
