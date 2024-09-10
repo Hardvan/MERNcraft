@@ -115,7 +115,13 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
                         create_server_js=True):
     """Creates a barebones MERN project with backend & frontend setup."""
 
-    # Step 1: Create frontend directory & run create-react-app with threading
+    # Step 1: Change to project root directory
+    if not os.path.exists(root_dir):
+        os.makedirs(root_dir)
+    os.chdir(root_dir)
+    print(f"📂 Changed directory to {root_dir}")
+
+    # Step 2: Create frontend directory & run create-react-app with threading
     def run_frontend():
         create_react_app_commands = [
             f"npx create-react-app {frontend_dir}"
@@ -126,12 +132,6 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         thread_frontend = threading.Thread(target=run_frontend)
         thread_frontend.start()
         print("📦 Creating React app in frontend using threading...")
-
-    # Step 2: Change to project root directory
-    if not os.path.exists(root_dir):
-        os.makedirs(root_dir)
-    os.chdir(root_dir)
-    print(f"📂 Changed directory to {root_dir}")
 
     # Step 3: Create top-level files
     # Create README.md
@@ -186,12 +186,12 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
                 print("✅ Created server.js")
 
         # Create & run the batch file for npm initialization
-        init_npm_commands = [
-            "npm init -y",
-            "npm install express nodemon",
-        ]
+        init_npm_commands = ["npm init -y"]
         _run_batch_commands(init_npm_commands)
         print("📦 Initialized npm in backend")
+        express_nodemon_commands = ["npm install express nodemon"]
+        _run_batch_commands(express_nodemon_commands)
+        print("📦 Installed Express & Nodemon in backend")
 
         # Update package.json with new scripts
         _update_package_json()
@@ -206,6 +206,12 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
 
     # Final message
     print("🎉 MERN project setup complete!")
+    print("Additional steps:")
+    print(
+        f"1. Change directory to {frontend_dir} and start the React app using 'npm start'.")
+    print(
+        f"2. Change directory to {backend_dir} and start the Express server using 'npm run dev'.")
+    print("Happy coding! 🚀")
 
 
 if __name__ == "__main__":
