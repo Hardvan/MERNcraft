@@ -88,7 +88,30 @@ def update_package_json():
         json.dump(package_json, f, indent=2)
 
 
-def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_dir="frontend"):
+def get_user_choice(prompt):
+    """Get user choice (y/n) and return True if 'y' and False if 'n'.
+
+    Args:
+    - prompt (str): Prompt message.
+
+    Returns:
+    - bool: True if 'y' and False if 'n'.
+    """
+    while True:
+        try:
+            print(prompt, end='')
+            choice = input().lower()
+            if choice in ['y', 'n']:
+                return choice == 'y'
+            raise ValueError
+        except ValueError:
+            print("Invalid input. Please enter 'y' or 'n'.")
+
+
+def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_dir="frontend",
+                        create_backend=True, create_frontend=True,
+                        create_readme=True, create_gitignore=True,
+                        create_server_js=True):
     """Creates a barebones MERN project with backend & frontend setup."""
 
     # Step 1: Change to project root directory
@@ -99,49 +122,78 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
 
     # Step 2: Create top-level files
     # Create README.md
-    with open("README.md", "w") as readme_file:
-        readme_file.write(README_CONTENT)
-    print("✅ Created README.md")
+    if create_readme:
+        if os.path.exists("README.md"):
+            if get_user_choice("🔍 Found an existing README.md. Overwrite (y/n)?: "):
+                with open("README.md", "w") as readme_file:
+                    readme_file.write(README_CONTENT)
+                print("✅ Overwritten README.md")
+            else:
+                print("Skipping README.md creation...")
+        else:
+            with open("README.md", "w") as readme_file:
+                readme_file.write(README_CONTENT)
+            print("✅ Created README.md")
     # Create .gitignore
-    with open(".gitignore", "w") as gitignore_file:
-        gitignore_file.write(GITIGNORE_CONTENT)
-    print("✅ Created .gitignore")
+    if create_gitignore:
+        if os.path.exists(".gitignore"):
+            if get_user_choice("🔍 Found an existing .gitignore. Overwrite (y/n)?: "):
+                with open(".gitignore", "w") as gitignore_file:
+                    gitignore_file.write(GITIGNORE_CONTENT)
+                print("✅ Overwritten .gitignore")
+            else:
+                print("Skipping .gitignore creation...")
+        else:
+            with open(".gitignore", "w") as gitignore_file:
+                gitignore_file.write(GITIGNORE_CONTENT)
+            print("✅ Created .gitignore")
 
-    # Step 3: Create backend directories ""
-    os.makedirs(f"{backend_dir}/models", exist_ok=True)
-    os.makedirs(f"{backend_dir}/routes", exist_ok=True)
-    os.makedirs(f"{backend_dir}/controllers", exist_ok=True)
-    print("✅ Created backend structure")
+    # Step 3: Create backend directories
+    if create_backend:
+        os.makedirs(f"{backend_dir}/models", exist_ok=True)
+        os.makedirs(f"{backend_dir}/routes", exist_ok=True)
+        os.makedirs(f"{backend_dir}/controllers", exist_ok=True)
+        print("✅ Created backend structure")
 
-    # Change to backend directory
-    os.chdir("backend")
+        # Change to backend directory
+        os.chdir("backend")
 
-    # Create server.js
-    with open("server.js", "w") as server_js:
-        server_js.write(SERVER_JS_CONTENT)
-    print("✅ Created server.js")
+        # Create server.js
+        if create_server_js:
+            if os.path.exists("server.js"):
+                if get_user_choice("🔍 Found an existing server.js. Overwrite (y/n)?: "):
+                    with open("server.js", "w") as server_js:
+                        server_js.write(SERVER_JS_CONTENT)
+                    print("✅ Overwritten server.js")
+                else:
+                    print("Skipping server.js creation...")
+            else:
+                with open("server.js", "w") as server_js:
+                    server_js.write(SERVER_JS_CONTENT)
+                print("✅ Created server.js")
 
-    # Create and run the batch file for npm initialization
-    init_npm_commands = [
-        "npm init -y",
-        "npm install express nodemon",
-    ]
-    run_batch_commands(init_npm_commands)
-    print("📦 Initialized npm in backend")
+        # Create & run the batch file for npm initialization
+        init_npm_commands = [
+            "npm init -y",
+            "npm install express nodemon",
+        ]
+        run_batch_commands(init_npm_commands)
+        print("📦 Initialized npm in backend")
 
-    # Update package.json with new scripts
-    update_package_json()
-    print("✅ Updated package.json with custom scripts")
+        # Update package.json with new scripts
+        update_package_json()
+        print("✅ Updated package.json with custom scripts")
 
-    # Step 5: Create frontend directory & initialize React app
-    os.chdir("..")
+        # Change back to project root directory
+        os.chdir("..")
 
-    # Create and run the batch file for creating React app
-    create_react_app_commands = [
-        f"npx create-react-app {frontend_dir}"
-    ]
-    run_batch_commands(create_react_app_commands)
-    print("📦 Created React app in frontend")
+    # Step 4: Create frontend directory & initialize React app
+    if create_frontend:
+        create_react_app_commands = [
+            f"npx create-react-app {frontend_dir}"
+        ]
+        run_batch_commands(create_react_app_commands)
+        print("📦 Created React app in frontend")
 
     # Final message
     print("🎉 MERN project setup complete!")
