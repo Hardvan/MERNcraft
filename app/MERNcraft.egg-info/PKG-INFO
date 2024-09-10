@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: MERNcraft
-Version: 1.0.3
+Version: 1.0.4
 Summary: MERNcraft is an automation script designed to kickstart your MERN stack application development. It helps you set up a basic project structure with React for the frontend and Express for the backend.
 Home-page: https://github.com/Hardvan/MERNcraft
 Author: Hardik Pawar
@@ -25,7 +25,7 @@ View the MERNcraft project on GitHub [here](https://github.com/Hardvan/MERNcraft
 
 ## Features
 
-- **Frontend Setup**: Creates a React application using `create-react-app` with multithreading support.
+- **Frontend Setup**: Creates a React application using `create-react-app`.
 - **Backend Setup**: Sets up a basic Express server with a sample `server.js` file.
 - **Project Structure**: Organizes the project into `frontend/` and `backend/` directories.
 - **Top-Level Files**: Includes a `README.md` and `.gitignore` for project documentation and Git management.

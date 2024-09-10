@@ -8,7 +8,7 @@ View the MERNcraft project on GitHub [here](https://github.com/Hardvan/MERNcraft
 
 ## Features
 
-- **Frontend Setup**: Creates a React application using `create-react-app` with multithreading support.
+- **Frontend Setup**: Creates a React application using `create-react-app`.
 - **Backend Setup**: Sets up a basic Express server with a sample `server.js` file.
 - **Project Structure**: Organizes the project into `frontend/` and `backend/` directories.
 - **Top-Level Files**: Includes a `README.md` and `.gitignore` for project documentation and Git management.
