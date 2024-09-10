@@ -2,9 +2,9 @@
 
 MERNcraft is an automation script designed to kickstart your MERN stack application development. It helps you set up a basic project structure with React for the frontend and Express for the backend.
 
-## MERN Barebones on GitHub
+## MERNcraft on PyPI
 
-View the MERN Barebones project on GitHub [here](https://github.com/Hardvan/MERNcraft).
+View the MERNcraft package on PyPI: [MERNcraft](https://pypi.org/project/MERNcraft/)
 
 ## Features
 
