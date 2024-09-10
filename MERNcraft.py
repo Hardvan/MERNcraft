@@ -1,6 +1,7 @@
 import os
 import json
 import tempfile
+import threading
 
 
 # Global Variables
@@ -114,13 +115,25 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
                         create_server_js=True):
     """Creates a barebones MERN project with backend & frontend setup."""
 
-    # Step 1: Change to project root directory
+    # Step 1: Create frontend directory & run create-react-app with threading
+    def run_frontend():
+        create_react_app_commands = [
+            f"npx create-react-app {frontend_dir}"
+        ]
+        _run_batch_commands(create_react_app_commands)
+        print("📦 Created React app in frontend")
+    if create_frontend:
+        thread_frontend = threading.Thread(target=run_frontend)
+        thread_frontend.start()
+        print("📦 Creating React app in frontend using threading...")
+
+    # Step 2: Change to project root directory
     if not os.path.exists(root_dir):
         os.makedirs(root_dir)
     os.chdir(root_dir)
     print(f"📂 Changed directory to {root_dir}")
 
-    # Step 2: Create top-level files
+    # Step 3: Create top-level files
     # Create README.md
     if create_readme:
         if os.path.exists("README.md"):
@@ -148,7 +161,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
                 gitignore_file.write(GITIGNORE_CONTENT)
             print("✅ Created .gitignore")
 
-    # Step 3: Create backend directories
+    # Step 4: Create backend directories & files
     if create_backend:
         os.makedirs(f"{backend_dir}/models", exist_ok=True)
         os.makedirs(f"{backend_dir}/routes", exist_ok=True)
@@ -187,13 +200,9 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         # Change back to project root directory
         os.chdir("..")
 
-    # Step 4: Create frontend directory & initialize React app
+    # Wait for thread_frontend to complete
     if create_frontend:
-        create_react_app_commands = [
-            f"npx create-react-app {frontend_dir}"
-        ]
-        _run_batch_commands(create_react_app_commands)
-        print("📦 Created React app in frontend")
+        thread_frontend.join()
 
     # Final message
     print("🎉 MERN project setup complete!")
