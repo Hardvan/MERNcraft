@@ -61,7 +61,12 @@ app.listen(port, () => {
 
 
 def _run_batch_commands(commands):
-    """Creates a temporary batch file, executes it, and deletes it."""
+    """Creates a temporary batch file, executes it, and deletes it.
+
+    Args
+    ----
+    - commands (list): List of commands to run in the batch file.
+    """
     with tempfile.NamedTemporaryFile(delete=False, suffix='.bat') as temp_batch_file:
         batch_file_path = temp_batch_file.name
         temp_batch_file.write('\n'.join(commands).encode())
@@ -72,9 +77,13 @@ def _run_batch_commands(commands):
         os.remove(batch_file_path)
 
 
-def _update_package_json():
-    """Updates the package.json file with custom scripts."""
-    package_json_path = 'package.json'
+def _update_package_json(package_json_path='package.json'):
+    """Updates the package.json file with custom scripts.
+
+    Args
+    ----
+    - package_json_path (str, optional): Path to the package.json file. Defaults to 'package.json'.
+    """
 
     with open(package_json_path, 'r') as f:
         package_json = json.load(f)
@@ -92,10 +101,12 @@ def _update_package_json():
 def _get_user_choice(prompt):
     """Get user choice (y/n) and return True if 'y' and False if 'n'.
 
-    Args:
+    Args
+    ----
     - prompt (str): Prompt message.
 
-    Returns:
+    Returns
+    -------
     - bool: True if 'y' and False if 'n'.
     """
     while True:
@@ -113,7 +124,26 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
                         create_backend=True, create_frontend=True,
                         create_readme=True, create_gitignore=True,
                         create_server_js=True):
-    """Creates a barebones MERN project with backend & frontend setup."""
+    """Creates a barebones MERN project with backend & frontend setup.
+
+    Args
+    ----
+    - root_dir (str, optional): Root directory for the project. Defaults to the current working directory.
+    - backend_dir (str, optional): Directory name for the backend. Defaults to 'backend'.
+    - frontend_dir (str, optional): Directory name for the frontend. Defaults to 'frontend'.
+    - create_backend (bool, optional): Create backend structure. Defaults to True.
+    - create_frontend (bool, optional): Create frontend structure. Defaults to True.
+    - create_readme (bool, optional): Create README.md. Defaults to True.
+    - create_gitignore (bool, optional): Create .gitignore. Defaults to True.
+    - create_server_js (bool, optional): Create server.js in backend. Defaults to True.
+
+    Steps
+    -----
+    1. Change to project root directory.
+    2. Create frontend directory & run create-react-app with threading.
+    3. Create top-level files (README.md, .gitignore).
+    4. Create backend directories & files.
+    """
 
     # Step 1: Change to project root directory
     if not os.path.exists(root_dir):
@@ -214,5 +244,6 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
     print("Happy coding! 🚀")
 
 
+# Example Usage
 if __name__ == "__main__":
     create_mern_project(root_dir="mern_project")
