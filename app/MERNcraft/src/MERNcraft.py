@@ -124,7 +124,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
                         create_backend=True, create_frontend=True,
                         create_readme=True, create_gitignore=True,
                         create_server_js=True):
-    """Creates a barebones MERN project with backend & frontend setup.
+    """Creates a barebones MERN project with backend (Express) & frontend (React) setup.
 
     Args
     ----
