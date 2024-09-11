@@ -6,6 +6,10 @@ MERNcraft is an automation script designed to kickstart your MERN stack applicat
 
 View the MERNcraft package on PyPI: [MERNcraft](https://pypi.org/project/MERNcraft/)
 
+## Demonstration Video
+
+[![MERNcraft Demonstration](./images/thumbnail2.png)](https://youtu.be/rEsh3bPoVTk)
+
 ## Features
 
 - **Frontend Setup**: Creates a React application using `create-react-app`.
