@@ -1,6 +1,7 @@
 import os
 import json
 import tempfile
+import time
 
 
 # Global Variables
@@ -143,6 +144,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
     3. Create backend directories & files.
     4. Create frontend directory & run create-react-app.
     """
+    start_time = time.time()
 
     # Step 1: Change to project root directory
     if not os.path.exists(root_dir):
@@ -226,8 +228,11 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         _run_batch_commands(create_react_app_commands)
         print("📦 Created React app in frontend")
 
+    end_time = time.time()
+
     # Final message
     print("🎉 MERN project setup complete!")
+    print(f"⏱️ Time taken: {end_time - start_time:.2f}s")
     print("Additional steps:")
     print(
         f"1. Change directory to {frontend_dir} and start the React app using 'npm start'.")
