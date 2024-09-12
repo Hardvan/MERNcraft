@@ -207,8 +207,10 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         init_npm_commands = ["npm init -y"]
         _run_batch_commands(init_npm_commands)
         print("📦 Initialized npm in backend")
-        express_nodemon_commands = ["npm install express nodemon"]
-        _run_batch_commands(express_nodemon_commands)
+        express_command = ["npm install express"]
+        _run_batch_commands(express_command)
+        nodemon_command = ["npm install nodemon --save-dev"]
+        _run_batch_commands(nodemon_command)
         print("📦 Installed Express & Nodemon in backend")
 
         # Update package.json with new scripts
@@ -225,6 +227,16 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
             f"npx create-react-app {frontend_dir}"
         ]
         _run_batch_commands(create_react_app_commands)
+
+        # Install axios
+        os.chdir(frontend_dir)
+        axios_command = ["npm install axios"]
+        _run_batch_commands(axios_command)
+        print("📦 Installed axios in frontend")
+
+        # Change back to project root directory
+        os.chdir("..")
+
         print("📦 Created React app in frontend")
 
     end_time = time.time()
