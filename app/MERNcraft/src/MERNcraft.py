@@ -243,7 +243,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
 
     # Final message
     print("🎉 MERN project setup complete!")
-    print(f"⏱️ Time taken: {end_time - start_time:.2f}s")
+    print(f"⏱️  Time taken: {end_time - start_time:.2f}s")
     print("Additional steps:")
     print(
         f"1. Change directory to {frontend_dir} and start the React app using 'npm start'.")
