@@ -5,7 +5,7 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="MERNcraft",
-    version="1.0.8",
+    version="1.0.9",
     author="Hardik Pawar",
     author_email="hardikpawarh@gmail.com",
     description="MERNcraft is an automation script designed to kickstart your MERN stack application development. It helps you set up a basic project structure with React for the frontend and Express for the backend.",

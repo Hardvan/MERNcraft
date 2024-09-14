@@ -189,6 +189,19 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         # Change to backend directory
         os.chdir("backend")
 
+        # Create .env with MONGODB_URI in backend
+        if os.path.exists(".env"):
+            if _get_user_choice("🔍 Found an existing .env. Overwrite (y/n)?: "):
+                with open(".env", "w") as env_file:
+                    env_file.write("MONGODB_URI=your_mongodb_uri")
+                print("✅ Overwritten .env")
+            else:
+                print("Skipping .env creation...")
+        else:
+            with open(".env", "w") as env_file:
+                env_file.write("MONGODB_URI=your_mongodb_uri")
+            print("✅ Created .env")
+
         # Create server.js
         if create_server_js:
             if os.path.exists("server.js"):
@@ -220,7 +233,7 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         # Change back to project root directory
         os.chdir("..")
 
-    # Step 4: Create frontend directory & run create-react-app with threading
+    # Step 4: Create frontend directory & run create-react-app
     if create_frontend:
         print("📦 Creating React app in frontend...")
         create_react_app_commands = [
@@ -233,6 +246,19 @@ def create_mern_project(root_dir=os.getcwd(), backend_dir="backend", frontend_di
         axios_command = ["npm install axios"]
         _run_batch_commands(axios_command)
         print("📦 Installed axios in frontend")
+
+        # Create a .env file in frontend for REACT_APP_API_URL (backend URL)
+        if os.path.exists(".env"):
+            if _get_user_choice("🔍 Found an existing .env. Overwrite (y/n)?: "):
+                with open(".env", "w") as env_file:
+                    env_file.write("REACT_APP_API_URL=http://localhost:5000")
+                print("✅ Overwritten .env")
+            else:
+                print("Skipping .env creation...")
+        else:
+            with open(".env", "w") as env_file:
+                env_file.write("REACT_APP_API_URL=http://localhost:5000")
+            print("✅ Created .env")
 
         # Change back to project root directory
         os.chdir("..")
