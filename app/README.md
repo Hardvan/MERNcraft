@@ -19,6 +19,15 @@ View the MERNcraft project on GitHub [here](https://github.com/Hardvan/MERNcraft
 - Prototype MERN stack applications.
 - Automate the setup of MERN projects for testing or learning purposes.
 
+## Bonus: How to Deploy a MERN Stack Application on Vercel (Frontend - React) and Render (Backend - Express)
+
+[This repository](https://github.com/Hardvan/How-to-Deploy-a-MERN-App-to-Vercel-and-Render) contains the step-by-step guide to deploy a MERN stack application on Vercel and Render. It includes the following:
+
+- Deploying the React frontend on Vercel.
+- Deploying the Express backend on Render.
+- Connecting the frontend and backend for a complete MERN stack application.
+- Setting up environment variables for the frontend and backend.
+
 ## Getting Started
 
 1. **Run the Automation Script**
